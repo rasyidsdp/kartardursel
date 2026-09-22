@@ -37,6 +37,124 @@ const IconPin = () => (
     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
   </svg>
 )
+const IconHelpCircle = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+    <line x1="12" y1="17" x2="12.01" y2="17"/>
+  </svg>
+)
+const IconChevronDown = ({ open }) => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+    style={{ transition: 'transform 0.25s', transform: open ? 'rotate(180deg)' : 'rotate(0deg)', flexShrink: 0 }}>
+    <polyline points="6 9 12 15 18 9"/>
+  </svg>
+)
+
+const faqItems = [
+  {
+    q: 'Apa saja layanan yang tersedia di website ini?',
+    steps: [
+      'Informasi & Pengumuman — berita dan info terbaru dari kelurahan.',
+      'Agenda Kegiatan — jadwal rapat, acara, dan kegiatan warga.',
+      'Pengajuan Persuratan — ajukan surat keterangan secara online.',
+      'Aspirasi & Pengaduan — sampaikan saran atau laporan masalah.',
+      'Galeri — dokumentasi foto dan video kegiatan warga.',
+      'Profil Kelurahan — struktur, visi misi, dan data kelurahan.',
+    ],
+  },
+  {
+    q: 'Bagaimana cara mengajukan surat keterangan secara online?',
+    steps: [
+      'Buka menu Pengajuan Persuratan di halaman utama.',
+      'Isi formulir: nama lengkap, NIK, nomor HP, dan pilih jenis surat.',
+      'Unggah foto KTP, foto Kartu Keluarga, dan surat pengantar dari RT.',
+      'Klik tombol "Kirim Pengajuan".',
+      'Pengurus akan memverifikasi dan menghubungi Anda dalam 1×24 jam.',
+    ],
+  },
+  {
+    q: 'Dokumen apa yang perlu disiapkan untuk pengajuan surat?',
+    steps: [
+      'Foto KTP (wajib) — ambil foto KTP yang jelas dan terbaca.',
+      'Foto Kartu Keluarga (wajib) — foto KK yang menampilkan data lengkap.',
+      'Surat Pengantar dari RT (wajib) — minta ke ketua RT terlebih dahulu.',
+      'Dokumen pendukung (jika ada) — sesuai jenis surat yang diajukan.',
+      'Pastikan file berformat JPG, PNG, atau PDF.',
+    ],
+  },
+  {
+    q: 'Berapa lama proses penerbitan surat?',
+    steps: [
+      'Surat Keterangan Domisili: 1 hari kerja.',
+      'Surat Pengantar KTP / Kartu Keluarga: 1 hari kerja.',
+      'Surat Keterangan Usaha: 2 hari kerja.',
+      'Proses lebih cepat jika semua dokumen sudah lengkap saat pengajuan.',
+    ],
+  },
+  {
+    q: 'Bagaimana cara menyampaikan aspirasi atau pengaduan?',
+    steps: [
+      'Buka menu Aspirasi & Pengaduan di halaman utama.',
+      'Pilih kategori: aspirasi, saran, kritik, atau pengaduan.',
+      'Tulis pesan Anda dengan jelas dan lengkap.',
+      'Klik "Kirim" — masukan akan dibaca dan ditindaklanjuti oleh pengurus.',
+    ],
+  },
+  {
+    q: 'Apakah layanan ini bisa digunakan di luar jam kerja?',
+    steps: [
+      'Pengisian formulir dan penyampaian aspirasi bisa dilakukan kapan saja.',
+      'Verifikasi dan penerbitan surat hanya diproses pada hari kerja.',
+      'Jam pelayanan: Senin–Jumat pukul 08.00–15.00 WIB.',
+      'Pengajuan di luar jam kerja akan diproses pada hari kerja berikutnya.',
+    ],
+  },
+]
+
+function FaqSection() {
+  const [openIdx, setOpenIdx] = useState(null)
+  return (
+    <section className="section-container" style={{ margin: '4rem auto' }}>
+      <div style={{ marginBottom: '2rem' }}>
+        <h2 className="section-title">Pertanyaan Umum</h2>
+        <p className="section-subtitle">Panduan singkat penggunaan layanan digital kelurahan.</p>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+        {faqItems.map((item, i) => {
+          const isOpen = openIdx === i
+          return (
+            <div key={i} style={{ border: '1.5px solid', borderColor: isOpen ? 'var(--brand-300)' : 'var(--gray-200)', borderRadius: '1rem', overflow: 'hidden', background: '#fff', transition: 'border-color 0.2s' }}>
+              <button
+                type="button"
+                onClick={() => setOpenIdx(isOpen ? null : i)}
+                style={{ width: '100%', textAlign: 'left', background: isOpen ? 'var(--brand-50)' : '#fff', border: 'none', padding: '1rem 1.25rem', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.75rem', transition: 'background 0.2s' }}
+              >
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+                  <span style={{ color: isOpen ? 'var(--brand-700)' : 'var(--gray-400)', flexShrink: 0, display: 'flex' }}><IconHelpCircle /></span>
+                  <span style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--gray-900)', lineHeight: 1.5 }}>{item.q}</span>
+                </span>
+                <span style={{ color: isOpen ? 'var(--brand-700)' : 'var(--gray-400)', transition: 'color 0.2s', flexShrink: 0 }}>
+                  <IconChevronDown open={isOpen} />
+                </span>
+              </button>
+              {isOpen && (
+                <div style={{ padding: '0.75rem 1.25rem 1rem 1.25rem', background: 'var(--brand-50)', borderTop: '1px solid var(--brand-200)' }}>
+                  <ol style={{ margin: 0, paddingLeft: '1.375rem', display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
+                    {item.steps.map((step, si) => (
+                      <li key={si} style={{ fontSize: '0.875rem', color: 'var(--gray-600)', lineHeight: 1.65 }}>{step}</li>
+                    ))}
+                  </ol>
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </section>
+  )
+}
+
 
 const menuItems = [
   {
@@ -206,6 +324,9 @@ export default function Beranda() {
           ))}
         </div>
       </section>
+
+      {/* ── FAQ ── */}
+      <FaqSection />
 
       {loading ? (
         <LoadingSpinner />
