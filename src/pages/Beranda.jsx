@@ -4,7 +4,7 @@ import berandaImg from '../assets/beranda.webp'
 import { supabase } from '../lib/supabase'
 import CategoryIcon from '../components/CategoryIcon'
 import LoadingSpinner from '../components/LoadingSpinner'
-s
+
 /* ── Icons ── */
 const IconUsers = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
