@@ -131,8 +131,8 @@ function FileUploadField({ label, required, fileKey, files, onFileChange }) {
 }
 
 const dokumenList = [
-  { key: 'ktp',       label: 'Fotokopi KTP',             required: true },
-  { key: 'kk',        label: 'Fotokopi Kartu Keluarga',  required: true },
+  { key: 'ktp',       label: 'Foto KTP',             required: true },
+  { key: 'kk',        label: 'Foto Kartu Keluarga',  required: true },
   { key: 'pengantar', label: 'Surat Pengantar dari RT',  required: true },
   { key: 'pendukung', label: 'Dokumen Pendukung',        required: false },
 ]
@@ -257,7 +257,15 @@ export default function Surat() {
 
             <div>
               <label className="form-label">Keterangan Tambahan</label>
-              <textarea className="form-input" placeholder="Tulis keterangan atau keperluan surat..." rows={3} value={form.keterangan} onChange={e => setForm({...form, keterangan: e.target.value})} style={{ resize: 'vertical', fontFamily: 'inherit' }} />
+              <textarea
+                className="form-input"
+                placeholder="Tulis keterangan atau keperluan surat..."
+                rows={3}
+                value={form.keterangan}
+                onChange={e => setForm({...form, keterangan: e.target.value})}
+                onInput={e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px' }}
+                style={{ resize: 'none', fontFamily: 'inherit', overflow: 'hidden' }}
+              />
             </div>
             <button type="submit" className="btn-primary" style={{ justifyContent: 'center' }}>
               Kirim Pengajuan
@@ -274,8 +282,8 @@ export default function Surat() {
               </h3>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
                 {[
-                  { text: 'Fotokopi KTP', req: true },
-                  { text: 'Fotokopi Kartu Keluarga', req: true },
+                  { text: 'Foto KTP', req: true },
+                  { text: 'Foto Kartu Keluarga', req: true },
                   { text: 'Surat pengantar dari RT', req: true },
                   { text: 'Dokumen pendukung (jika ada)', req: false },
                 ].map(d => (
@@ -288,7 +296,6 @@ export default function Surat() {
                       <IconCheckmark />
                     </span>
                     {d.text}
-                    {!d.req && <span style={{ fontSize: '0.7rem', color: 'var(--brand-500)', fontWeight: 600 }}>(opsional)</span>}
                   </li>
                 ))}
               </ul>
